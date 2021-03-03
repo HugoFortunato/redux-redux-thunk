@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
-function App() {
+import { connect } from "react-redux";
+import storeType from "types/storeType";
+import { getPosts } from "actions";
+import AppPropType from "./AppPropType";
+
+const App: React.FC<AppPropType> = ({ getPosts }) => {
+	useEffect(() => {
+		console.log("running effect");
+		getPosts();
+		console.log("effects complete");
+	}, [getPosts]);
+
 	return (
 		<div className="App">
 			<h1>Posts</h1>
@@ -23,6 +34,18 @@ function App() {
 			</div>
 		</div>
 	);
-}
+};
 
-export default App;
+const mapStateToProps = (state: storeType) => {
+	return {
+		posts: state.posts,
+	};
+};
+
+// const mapDispatchToProps = () => {
+// 	return {
+// 		getPosts,
+// 	};
+// };
+
+export default connect(mapStateToProps, { getPosts })(App);
