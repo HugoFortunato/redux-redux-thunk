@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const postApi = axios.create({
-	baseURL: "/posts",
+	baseURL: "http://localhost:4000",
 });
 
 export default postApi;

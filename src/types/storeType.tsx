@@ -1,7 +1,9 @@
 export type post = {
-	id: number;
-	title: string;
-	body: string;
+	params: {
+		id: number;
+		title: string;
+		body: string;
+	}
 };
 
 interface storeType {
