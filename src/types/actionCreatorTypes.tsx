@@ -1,6 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import storeType from "types/storeType";
-import { addPostAction, getPostsAction } from "types/actionTypes";
+import { addPostAction, getPostsAction, removePostAction } from "types/actionTypes";
 
 export type PostType = {
 	id: number;
@@ -20,4 +20,11 @@ export type addPostsActionCreator = (params: PostType) => ThunkAction<
 	storeType,
 	{},
 	addPostAction
+>;
+
+export type removePostActionCreator = (id: number) => ThunkAction<
+	void,
+	storeType,
+	{},
+	removePostAction
 >;

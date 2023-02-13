@@ -12,7 +12,9 @@ const postReducer: Reducer<post[]> = (
 		case "GET_POSTS":
 			return [...state, ...action.payload];
 		case "ADD_POST":
-			return [...state, action.payload];	
+			return [...state, ...action.payload];	
+		case "REMOVE_POST":
+			return [...state, ...action.payload.id]
 		default:
 			return state;
 	}

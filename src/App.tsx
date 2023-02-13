@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./App.css";
 
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import storeType from "types/storeType";
-import { getPosts, addPost } from "actions";
+import { getPosts, addPost, removePost} from "actions";
 import AppPropType from "./AppPropType";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Dispatch } from "redux";
 
 interface IFormInput {
   id: number;
@@ -13,14 +14,23 @@ interface IFormInput {
 	title: string;
 }
 
-const App: React.FC<AppPropType> = ({ getPosts, addPost, posts }) => {
-	console.log(posts[42]?.params)
+const App: React.FC<AppPropType> = ({ getPosts, addPost, removePost, posts }) => {
+	console.log(posts)
 	const { register, handleSubmit } = useForm<IFormInput>();
+	const dispatch: Dispatch<any> = useDispatch()
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-
 		addPost(data)
 	}
+
+	const deletePost = useCallback(async (id: number) => {  
+		try {
+			await dispatch(removePost(id))
+		} catch (err) {
+      console.log(err)
+		}
+	}, [dispatch, removePost])
+
 
 	useEffect(() => {
 		getPosts();
@@ -40,9 +50,12 @@ const App: React.FC<AppPropType> = ({ getPosts, addPost, posts }) => {
 			<h1>Posts</h1>
 			{posts.map((post, index) => (
 				<div className="post" key={index}>
-					<h2>{post?.params?.title}</h2>
-					<p>{post?.params?.body}</p>
+					<h2>{post?.title}</h2>
+					<p>{post?.body}</p>
+
+					<button type="submit" onClick={() => deletePost(post.id)}>Excluir</button>
 				</div>
+
 			))}
 		</div>
 	);
@@ -54,4 +67,4 @@ const mapStateToProps = (state: storeType) => {
 	};
 };
 
-export default connect(mapStateToProps, { getPosts, addPost })(App);
+export default connect(mapStateToProps, { getPosts, addPost, removePost })(App);

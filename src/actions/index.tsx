@@ -1,4 +1,4 @@
-import { addPostsActionCreator, getPostsActionCreator} from "types/actionCreatorTypes";
+import { addPostsActionCreator, getPostsActionCreator, PostType, removePostActionCreator} from "types/actionCreatorTypes";
 import postApi from "api/postApi";
 
 export const getPosts: getPostsActionCreator = () => async (
@@ -19,18 +19,33 @@ export const getPosts: getPostsActionCreator = () => async (
 };
 
 
-export const addPost: addPostsActionCreator = (params: any) => async (
+export const addPost: addPostsActionCreator = (params: PostType) => async (
 	dispatch: any,
 ) => {
-	console.log(params, 'o que sou eu')
 	try {
-		const response = await postApi.post("/posts", {
-			params
-		});
+		const response = await postApi.post("/posts", params);
 		switch (response.status) {
 			case 200:
 				dispatch({
 					type: "ADD_POST",
+					payload: response.data,
+				});
+		}
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+
+export const removePost: removePostActionCreator = (id: number) => async (
+	dispatch: any,
+) => {
+	try {
+		const response = await postApi.delete(`/posts/${id}`);
+		switch (response.status) {
+			case 200:
+				dispatch({
+					type: "REMOVE_POST",
 					payload: response.data,
 				});
 		}
