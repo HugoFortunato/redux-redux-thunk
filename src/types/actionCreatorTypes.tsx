@@ -22,7 +22,7 @@ export type addPostsActionCreator = (params: PostType) => ThunkAction<
 	addPostAction
 >;
 
-export type removePostActionCreator = (id: number) => ThunkAction<
+export type removePostActionCreator = (id: string) => ThunkAction<
 	void,
 	storeType,
 	{},

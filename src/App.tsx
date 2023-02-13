@@ -25,7 +25,7 @@ const App: React.FC<AppPropType> = ({ getPosts, addPost, removePost, posts }) =>
 
 	const deletePost = useCallback(async (id: number) => {  
 		try {
-			await dispatch(removePost(id))
+			await dispatch(removePost(String(id)))
 		} catch (err) {
       console.log(err)
 		}

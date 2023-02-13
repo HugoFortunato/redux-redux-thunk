@@ -37,7 +37,7 @@ export const addPost: addPostsActionCreator = (params: PostType) => async (
 };
 
 
-export const removePost: removePostActionCreator = (id: number) => async (
+export const removePost: removePostActionCreator = (id: string) => async (
 	dispatch: any,
 ) => {
 	try {
