@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 
 import { connect, useDispatch } from "react-redux";
@@ -15,17 +15,28 @@ interface IFormInput {
 }
 
 const App: React.FC<AppPropType> = ({ getPosts, addPost, removePost, posts }) => {
-	console.log(posts)
 	const { register, handleSubmit } = useForm<IFormInput>();
 	const dispatch: Dispatch<any> = useDispatch()
+	const [myPosts, setMyPosts] = useState(posts)	
+	console.log(posts)
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		addPost(data)
+
+		const addNewItem = [...myPosts, data]
+
+		setMyPosts(addNewItem)
 	}
 
-	const deletePost = useCallback(async (id: number) => {  
+	const deletePost = useCallback(async (id: number, index: number) => {  
 		try {
+			
+      setMyPosts((oldPosts) => {
+				return oldPosts.filter((_, i) => i !== index)
+			 })
+
 			await dispatch(removePost(String(id)))
+
 		} catch (err) {
       console.log(err)
 		}
@@ -35,6 +46,11 @@ const App: React.FC<AppPropType> = ({ getPosts, addPost, removePost, posts }) =>
 	useEffect(() => {
 		getPosts();
 	}, [getPosts]);
+
+	useEffect(() => {
+		setMyPosts(posts)
+	}, [posts])
+
 
 	return (
 		<div className="App">
@@ -48,12 +64,12 @@ const App: React.FC<AppPropType> = ({ getPosts, addPost, removePost, posts }) =>
 
 
 			<h1>Posts</h1>
-			{posts.map((post, index) => (
+			{myPosts.map((post, index) => (
 				<div className="post" key={index}>
 					<h2>{post?.title}</h2>
 					<p>{post?.body}</p>
 
-					<button type="submit" onClick={() => deletePost(post.id)}>Excluir</button>
+					<button type="submit" onClick={() => deletePost(post.id, index)}>Excluir</button>
 				</div>
 
 			))}
