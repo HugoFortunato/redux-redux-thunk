@@ -11,11 +11,12 @@
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
 		"axios": "^0.21.1",
+		"eslint-plugin-import-helpers": "^1.3.1",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
 		"react-hook-form": "^7.43.1",
 		"react-redux": "^7.2.2",
-		"react-scripts": "4.0.3",
+		"react-scripts": "4.0.1",
 		"redux": "^4.0.5",
 		"redux-devtools-extension": "^2.13.8",
 		"redux-thunk": "^2.3.0",
@@ -26,7 +27,9 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"lint": "tsc --noEmit && eslint src/**/*.ts{,x} --cache --max-warnings=0",
+		"lint:fix": "eslint src/**/*.ts{,x} --fix"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -48,6 +51,19 @@
 	},
 	"proxy": "https://jsonplaceholder.typicode.com",
 	"devDependencies": {
-		"@types/react-redux": "^7.1.16"
+		"@types/react-redux": "^7.1.16",
+		"@typescript-eslint/eslint-plugin": "^5.13.0",
+		"@typescript-eslint/parser": "^5.0.0",
+		"eslint": "^7.32.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-airbnb-typescript": "^17.0.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-import-resolver-typescript": "^3.5.1",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-jsx-a11y": "^6.6.1",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-react": "^7.31.8",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"prettier": "^2.7.1"
 	}
 }

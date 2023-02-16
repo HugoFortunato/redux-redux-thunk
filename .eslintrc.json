@@ -1,0 +1,91 @@
+{
+  "env": {
+      "browser": true,
+      "es6": true
+  },
+  "extends": [
+      "eslint:recommended",
+      "airbnb/hooks",
+      "airbnb-typescript",
+      "plugin:react/recommended",
+    //   "plugin:react/jsx-runtime",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:prettier/recommended",
+      "plugin:import/recommended"
+  ],
+  // Specifying Parser
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "tsconfigRootDir": ".",
+      "project": [
+          "./tsconfig.json"
+      ]
+  },
+  // Configuring third-party plugins
+  "plugins": [
+      "react",
+      "@typescript-eslint",
+      "eslint-plugin-import-helpers"
+  ],
+  // Resolve imports
+  "settings": {
+      "import/resolver": {
+          "typescript": {
+              "project": "./tsconfig.json"
+          }
+      },
+      "react": {
+          "version": "18.x"
+      }
+  },
+  "rules": {
+      "linebreak-style": "off",
+      "import-helpers/order-imports": [
+        "warn",
+        {
+          "newlinesBetween": "always",
+          "groups": [
+            "/^react$/",
+            "module",
+            "/^(@/)?utils/",
+            "/^(@/)?components/",
+            "/^@/modules/",
+            "/^./schema//^./types/",
+            ["parent", "sibling", "index"],
+            "/^./styles/"
+          ],
+          "alphabetize": { "order": "asc", "ignoreCase": true }
+        }
+      ],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/ban-types": [
+          "error",
+          {
+              "extendDefaults": true,
+              "types": {
+                  "{}": false
+              }
+          }
+      ],
+      "react-hooks/exhaustive-deps": "off",
+      "@typescript-eslint/await-thenable": "off",
+      "object-shorthand": "error",
+      "no-console": "off",
+      "@typescript-eslint/no-shadow": "off",
+      "@typescript-eslint/no-misused-promises": "off",
+      "@typescript-eslint/naming-convention": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "import/no-named-as-default-member": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "default-param-last": "off",
+      "@typescript-eslint/default-param-last": "off"
+  }
+}
